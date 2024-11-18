@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import Image from "next/image";
+import { League_Spartan } from "next/font/google";
+import { ThemeToggle } from "./components/ThemeToggle";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const spartan = League_Spartan({
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,11 +20,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={spartan.className}>
+      <body className="relative min-h-screen bg-slate-200 antialiased dark:bg-slate-900">
+        <nav
+          aria-label="Main navigation"
+          className="left-0 flex h-16 w-full items-center bg-blue-950 md:h-20 lg:fixed lg:h-full lg:w-24 lg:flex-col lg:rounded-r-3xl"
+        >
+          <Image
+            className="absolute left-0 top-0 h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
+            src="/logo.svg"
+            alt="company logo"
+            width={103}
+            height={103}
+          />
+          <div className="ml-auto flex items-center pr-6 lg:ml-0 lg:mt-auto lg:flex-col lg:pb-6 lg:pr-0">
+            <ThemeToggle />
+            <Image
+              className="ml-4 lg:ml-0"
+              src="/imgs/profile-pic.png"
+              alt="profile picture"
+              width={40}
+              height={40}
+            />
+          </div>
+        </nav>
+        <main className="flex justify-center px-6 py-8 md:px-12 md:py-14 lg:py-16 lg:pl-24">
+          <div className="w-full max-w-3xl">{children}</div>
+        </main>
       </body>
     </html>
   );

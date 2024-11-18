@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .label {
+    @apply mb-2 inline-block text-sm capitalize text-slate-600 lg:text-base dark:text-white;
+  }
+  .input {
+    @apply h-12 w-full rounded-md border border-gray-300 bg-slate-100 px-4 text-slate-800 shadow-none outline-none focus:outline-1 focus:outline-offset-0 focus:outline-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -17,5 +26,5 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "League Spartan", Helvetica, sans-serif;
 }
