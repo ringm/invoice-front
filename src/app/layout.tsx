@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={spartan.className}>
+    <html lang="en" className={`${spartan.className} dark`}>
       <body className="relative min-h-screen bg-slate-200 antialiased dark:bg-slate-900">
         <nav
           aria-label="Main navigation"

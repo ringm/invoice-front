@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 export const ThemeToggle = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";

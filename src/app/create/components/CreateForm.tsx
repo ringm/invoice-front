@@ -1,5 +1,5 @@
-import Form from "next/form";
-import { createInvoice } from "../actions";
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/datePicker";
 import {
@@ -10,24 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+// import { ItemListTable } from "./ItemListTable";
 
 export const CreateForm: React.FC = () => {
-  const items = [
-    { id: 0, name: "Banner Design", qty: 1, price: 156.0 },
-    { id: 1, name: "Email Design", qty: 2, price: 200.0 },
-  ];
   return (
-    <Form action={createInvoice} className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4">
       <fieldset>
         <legend className="font-bold capitalize text-slate-600 dark:text-white lg:mb-4">
           Bill from
@@ -116,7 +104,6 @@ export const CreateForm: React.FC = () => {
             </label>
             <br />
             <DatePicker />
-            {/* <input id="invoiceDate" type="date" className="input" /> */}
           </div>
           <div className="flex-1">
             <label className="label">Payment Terms</label>
@@ -139,76 +126,21 @@ export const CreateForm: React.FC = () => {
         <legend className="text-xl font-bold text-slate-800 dark:text-slate-500">
           Item List
         </legend>
-        <Table>
-          <TableHeader className="hidden md:table-header-group">
-            <TableRow className="hover:dark:bg-transparent">
-              <TableHead>Item Name</TableHead>
-              <TableHead className="w-[7.5rem]">Qty.</TableHead>
-              <TableHead className="w-[10rem]">Price</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {items.map((item) => (
-              <TableRow
-                key={item.id}
-                className="grid w-full grid-cols-4 md:table-row"
-              >
-                <TableCell className="col-span-4 font-medium">
-                  <label className="label md:hidden">Item Name</label>
-                  <Input type="text" defaultValue={item.name} />
-                </TableCell>
-                <TableCell>
-                  <label className="label md:hidden">Qty.</label>
-                  <Input type="number" defaultValue={item.qty} min={1} />
-                </TableCell>
-                <TableCell>
-                  <label className="label md:hidden">Price</label>
-                  <Input type="number" defaultValue={item.price} />
-                </TableCell>
-                <TableCell>
-                  <label className="label mb-5 md:hidden">Total</label>
-                  <span className="block md:inline">
-                    ${item.qty * item.price}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="ml-6 mt-7 md:ml-0 md:mt-0"
-                  >
-                    <Trash2 />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-            <TableRow className="hover:dark:bg-transparent">
-              <TableCell colSpan={5}>
-                <Button className="w-full" variant="secondary">
-                  + Add New Item
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-          {/* <TableFooter className="table-footer-group">
-            <TableRow className="hover:dark:bg-transparent">
-              <TableCell>Total</TableCell>
-              <TableCell className="text-left">
-                ${items.reduce((acc, curr) => curr.qty * curr.price + acc, 0)}
-              </TableCell>
-            </TableRow>
-          </TableFooter> */}
-        </Table>
+        {/* <ItemListTable
+          items={invoiceItems}
+          onAddItem={addItem}
+          onDeleteItem={removeItem}
+        /> */}
       </fieldset>
       <div className="flex items-center">
         <Button className="mr-auto" variant="destructive">
           Discard
         </Button>
         <Button variant="secondary">Save Draft</Button>
-        <Button className="ml-4 bg-purple-400">Create</Button>
+        <Button type="submit" className="ml-4 bg-purple-400">
+          Create
+        </Button>
       </div>
-    </Form>
+    </form>
   );
 };
