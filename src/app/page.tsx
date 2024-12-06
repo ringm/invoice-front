@@ -1,38 +1,36 @@
 import { Header } from "./components/Header";
 import { Invoice } from "./components/Invoice";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { cookies } from "next/headers";
+
+const getInvoices = async () => {
+  const c = await cookies();
+  const token = c.get("invoice-session");
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DEV}/invoice`, {
+      headers: {
+        Authorization: `Bearer ${token?.value}`,
+      },
+      method: "GET",
+    });
+    console.log("res", res);
+    if (res.ok) {
+      const invoices = await res.json();
+      return invoices.data;
+    }
+    return null;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return (
-      <>
-        <p>
-          You are not logged in. Please log in or sign up to access this page.
-        </p>
-        <div className="flex items-center gap-4">
-          <Button asChild className="mt-4">
-            <Link href="/auth/login">Log In</Link>
-          </Button>
-          <Button asChild className="mt-4">
-            <Link href="/auth/signup">Sign Up</Link>
-          </Button>
-        </div>
-      </>
-    );
-  }
+  const invoices = await getInvoices();
+  console.log("invoices: ", invoices);
   return (
     <>
       <Header />
       <div className="mt-8 flex flex-col gap-4">
-        <Invoice />
-        <Invoice />
-        <Invoice />
-        <Invoice />
+        {invoices?.map((invoice) => <Invoice key={invoice.id} {...invoice} />)}
       </div>
     </>
   );

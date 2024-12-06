@@ -7,9 +7,7 @@ import { useActionState } from "react";
 import { logIn } from "../actions";
 
 export const LogInForm: React.FC = () => {
-  const [state, action, isPending] = useActionState(logIn, {
-    statusCode: undefined,
-  });
+  const [state, action, isPending] = useActionState(logIn, { errors: {} });
 
   return (
     <>
@@ -17,22 +15,30 @@ export const LogInForm: React.FC = () => {
         <label htmlFor="email" className="label">
           email
         </label>
-        <Input id="email" type="email" className="mb-6" />
-        <label htmlFor="password" className="label">
+        <Input id="email" name="email" type="email" className="mb-2" />
+        {state?.errors?.email && (
+          <p className="text-sm text-red-400">{state?.errors?.email}</p>
+        )}
+        <label htmlFor="password" className="label mt-4">
           password
         </label>
-        <Input id="password" type="password" className="mb-6" />
-        <Button disabled={isPending} type="submit" className="w-32">
+        <Input id="password" name="password" type="password" className="mb-2" />
+        {state?.errors?.password && (
+          <p className="text-sm text-red-400">{state?.errors?.password}</p>
+        )}
+        <Button type="submit" className="mt-6 w-32">
           <Loader2 className={`mr-1 animate-spin ${!isPending && "hidden"}`} />
           Log In
         </Button>
       </form>
       <p className="text-red-400">
-        {state?.statusCode === 401 && "Invalid credentials."}
-        {state?.statusCode === 404 &&
-          "User doesn't exist. Try a different email or sign up."}
-        {state?.statusCode === 500 &&
-          "Something went wrong. Please try again later."}
+        {state.errors?.unauthorized ||
+          (state.errors?.server && (
+            <p className="text-sm text-red-400">
+              {state.errors.server}
+              {state.errors.unauthorized}
+            </p>
+          ))}
       </p>
     </>
   );

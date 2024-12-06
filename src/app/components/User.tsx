@@ -1,33 +1,33 @@
-"use client";
-
-import Image from "next/image";
-import { useSession } from "next-auth/react";
+import Link from "next/link";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { LogOutButton } from "./LogOutButton";
+import { Button } from "@/components/ui/button";
+import { logOut } from "../auth/actions";
+import { cookies } from "next/headers";
 
-export const User: React.FC = () => {
-  const { data: session } = useSession();
+export const User: React.FC = async () => {
+  const c = await cookies();
+  const session = c.get("invoice-session");
   return (
     <Popover>
       <PopoverTrigger asChild>
-        {session ? (
-          <Image
-            className="ml-4 cursor-pointer lg:ml-0"
-            src="/imgs/profile-pic.png"
-            alt="profile picture"
-            width={40}
-            height={40}
-          />
-        ) : (
-          <div className="h-10 w-10 rounded-full bg-fuchsia-500"></div>
-        )}
+        <div className="h-10 w-10 cursor-pointer rounded-full bg-slate-200"></div>
       </PopoverTrigger>
       <PopoverContent className="mb-4 ml-4 w-auto">
-        <LogOutButton />
+        {session ? (
+          <form action={logOut}>
+            <Button type="submit" variant="ghost">
+              Log out
+            </Button>
+          </form>
+        ) : (
+          <Button asChild variant="ghost">
+            <Link href="/auth/login">Log In</Link>
+          </Button>
+        )}
       </PopoverContent>
     </Popover>
   );
