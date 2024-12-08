@@ -17,6 +17,7 @@ export interface Invoice {
   paymentDue: Date;
   invoiceItems: InvoiceItem[];
   paid: boolean;
+  total: number;
 }
 
 export interface CreateInvoiceForm
