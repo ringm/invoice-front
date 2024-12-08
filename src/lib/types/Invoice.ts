@@ -18,3 +18,15 @@ export interface Invoice {
   invoiceItems: InvoiceItem[];
   paid: boolean;
 }
+
+export interface CreateInvoiceForm
+  extends Pick<
+    Invoice,
+    | "userId"
+    | "title"
+    | "userAddressId"
+    | "clientId"
+    | "invoiceDate"
+    | "paymentDue"
+    | "paid"
+  > {}

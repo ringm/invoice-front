@@ -9,7 +9,7 @@ const getMe = async () => {
 };
 
 export default async function Account() {
-  const me = await getMe();
+  const me: any = await getMe();
   return (
     <div>
       <h1 className="mb-6 text-3xl font-bold">Account</h1>

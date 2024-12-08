@@ -26,7 +26,7 @@ export const LogInForm: React.FC = () => {
         {state?.errors?.password && (
           <p className="text-sm text-red-400">{state?.errors?.password}</p>
         )}
-        <Button type="submit" className="mt-6 w-32">
+        <Button disabled={isPending} type="submit" className="mt-6 w-32">
           <Loader2 className={`mr-1 animate-spin ${!isPending && "hidden"}`} />
           Log In
         </Button>
