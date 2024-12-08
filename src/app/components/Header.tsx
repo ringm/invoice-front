@@ -5,7 +5,9 @@ export default function Page() {
   return <Link href="/dashboard">Dashboard</Link>;
 }
 
-export const Header: React.FC = () => {
+export const Header: React.FC<{ pendingInvoicesAmount: number }> = ({
+  pendingInvoicesAmount,
+}) => {
   return (
     <header className="flex justify-between">
       <div>
@@ -13,7 +15,7 @@ export const Header: React.FC = () => {
           Invoices
         </h1>
         <p className="font-regular text-slate-500 dark:text-slate-300">
-          There are 4 pending invoices
+          There are {pendingInvoicesAmount} pending invoices
         </p>
       </div>
       <Button asChild>

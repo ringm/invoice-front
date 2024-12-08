@@ -25,7 +25,7 @@ export async function logIn(
       };
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DEV}/auth/login`, {
+    const res = await fetch(`${process.env.API_DEV}/auth/login`, {
       headers: { "Content-type": "application/json" },
       method: "POST",
       body: JSON.stringify({ email, password }),

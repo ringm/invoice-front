@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-// import SessionProvider from "./components/SessionProvider";
-// import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { League_Spartan } from "next/font/google";
 import "./globals.css";
@@ -22,14 +20,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const session = await getServerSession();
-
   return (
     <html lang="en" className={`${spartan.className} dark`}>
       <body className="relative min-h-screen bg-slate-200 antialiased dark:bg-slate-900">
-        {/* <SessionProvider session={session}> */}
         <nav
-          aria-label="Main navigation"
+          aria-label="main navigation"
           className="left-0 flex h-16 w-full items-center bg-blue-950 md:h-20 lg:fixed lg:h-full lg:w-24 lg:flex-col lg:rounded-r-3xl"
         >
           <div className="ml-auto flex items-center pr-6 lg:ml-0 lg:mt-auto lg:flex-col lg:pb-6 lg:pr-0">
@@ -46,9 +41,8 @@ export default async function RootLayout({
           </div>
         </nav>
         <main className="flex justify-center px-6 py-8 md:px-12 md:py-14 lg:py-16 lg:pl-24">
-          <div className="w-full max-w-3xl">{children}</div>
+          {children}
         </main>
-        {/* </SessionProvider> */}
       </body>
     </html>
   );

@@ -6,13 +6,12 @@ const getInvoices = async () => {
   const c = await cookies();
   const token = c.get("invoice-session");
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DEV}/invoice`, {
+    const res = await fetch(`${process.env.API_DEV}/invoice`, {
       headers: {
         Authorization: `Bearer ${token?.value}`,
       },
       method: "GET",
     });
-    console.log("res", res);
     if (res.ok) {
       const invoices = await res.json();
       return invoices.data;
@@ -25,13 +24,13 @@ const getInvoices = async () => {
 
 export default async function Home() {
   const invoices = await getInvoices();
-  console.log("invoices: ", invoices);
+  const pendingInvoices = invoices.filter((invoice) => !invoice.paid).length;
   return (
-    <>
-      <Header />
+    <div className="w-full max-w-3xl">
+      <Header pendingInvoicesAmount={pendingInvoices} />
       <div className="mt-8 flex flex-col gap-4">
         {invoices?.map((invoice) => <Invoice key={invoice.id} {...invoice} />)}
       </div>
-    </>
+    </div>
   );
 }

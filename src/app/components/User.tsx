@@ -18,11 +18,16 @@ export const User: React.FC = async () => {
       </PopoverTrigger>
       <PopoverContent className="mb-4 ml-4 w-auto">
         {session ? (
-          <form action={logOut}>
-            <Button type="submit" variant="ghost">
-              Log out
-            </Button>
-          </form>
+          <div className="flex flex-col gap-6">
+            <Link href="/account">
+              <Button variant="ghost">Account</Button>
+            </Link>
+            <form action={logOut}>
+              <Button type="submit" variant="ghost">
+                Log out
+              </Button>
+            </form>
+          </div>
         ) : (
           <Button asChild variant="ghost">
             <Link href="/auth/login">Log In</Link>
